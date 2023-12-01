@@ -8,7 +8,7 @@ if __name__ == "__main__":
         else:
             print("{} arguments:".format(length))
         i = 1
-        while(i <= length):
+        while (i <= length):
             print("{}: {}".format(i, argv[i]))
             i += 1
     else:
