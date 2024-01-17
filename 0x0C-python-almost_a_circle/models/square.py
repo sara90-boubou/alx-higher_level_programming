@@ -1,55 +1,49 @@
 #!/usr/bin/python3
-"""
-This module implements a square object
-"""
+'''Module for Square class.'''
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """Square implementstion"""
+    '''A Square class.'''
 
-    def __init__(self, size: int, x=0, y=0, id=None):
-        """initialization
-        """
+    def __init__(self, size, x=0, y=0, id=None):
+        '''Constructor.'''
         super().__init__(size, size, x, y, id)
-        self.__size = size
+
+    def __str__(self):
+        '''Returns string info about this square.'''
+        return '[{}] ({}) {}/{} - {}'.\
+            format(type(self).__name__, self.id, self.x, self.y, self.width)
 
     @property
-    def size(self) -> int:
-        """size getter
-        """
-        return self.__size
+    def size(self):
+        '''Size of this square.'''
+        return self.width
 
     @size.setter
-    def size(self, value: int):
-        """size setter
-        """
-        self.__size = value
-        self.width = self.height = value
+    def size(self, value):
+        self.width = value
+        self.height = value
 
-    def __str__(self) -> str:
-        """string representation"""
-        id = self.id
-        size = self.__size
-        x = self.x
-        y = self.y
-        return "[Square] ({}) {}/{} - {}".format(id, x, y, size)
+    def __update(self, id=None, size=None, x=None, y=None):
+        '''Internal method that updates instance attributes via */**args.'''
+        if id is not None:
+            self.id = id
+        if size is not None:
+            self.size = size
+        if x is not None:
+            self.x = x
+        if y is not None:
+            self.y = y
 
     def update(self, *args, **kwargs):
-        """update arguments"""
-        attr = ['id', 'size', 'x', 'y']
+        '''Updates instance attributes via no-keyword & keyword args.'''
         if args:
-            for at, numb in zip(attr, args):
-                setattr(self, at, numb)
+            self.__update(*args)
         elif kwargs:
-            for key, value in kwargs.items():
-                if key in attr:
-                    setattr(self, key, value)
+            self.__update(**kwargs)
 
-    def to_dictionary(self) -> dict:
-        """squaere to dictionary"""
-        id = self.id
-        size = self.__size
-        x = self.x
-        y = self.y
-        return {'id': id, 'x': x, 'size': size, 'y': y}
+    def to_dictionary(self):
+        '''Returns dictionary representation of this class.'''
+        return {"id": self.id, "size": self.width,
+                "x": self.x, "y": self.y}
