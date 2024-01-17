@@ -1,24 +1,55 @@
 #!/usr/bin/python3
-"""Unittest for base
 """
-
-import unittest
-from models.square import Square
-
-
-class TestSquare(unittest.TestCase):
-    """Define unit test for square model"""
-
-    def test_initialization_success(self):
-        s1 = Square(5)
-        s2 = Square(10)
-        self.assertEqual(s1.id, 5)
-        self.assertEqual(s2.id, 6)
-
-    def test_initialization_without_arguments(self):
-
-        self.assertRaises(TypeError, Square)
+This module implements a square object
+"""
+from models.rectangle import Rectangle
 
 
-if __name__ == '__main__':
-    unittest.main()
+class Square(Rectangle):
+    """Square implementstion"""
+
+    def __init__(self, size: int, x=0, y=0, id=None):
+        """initialization
+        """
+        super().__init__(size, size, x, y, id)
+        self.__size = size
+
+    @property
+    def size(self) -> int:
+        """size getter
+        """
+        return self.__size
+
+    @size.setter
+    def size(self, value: int):
+        """size setter
+        """
+        self.__size = value
+        self.width = self.height = value
+
+    def __str__(self) -> str:
+        """string representation"""
+        id = self.id
+        size = self.__size
+        x = self.x
+        y = self.y
+        return "[Square] ({}) {}/{} - {}".format(id, x, y, size)
+
+    def update(self, *args, **kwargs):
+        """update arguments"""
+        attr = ['id', 'size', 'x', 'y']
+        if args:
+            for at, numb in zip(attr, args):
+                setattr(self, at, numb)
+        elif kwargs:
+            for key, value in kwargs.items():
+                if key in attr:
+                    setattr(self, key, value)
+
+    def to_dictionary(self) -> dict:
+        """squaere to dictionary"""
+        id = self.id
+        size = self.__size
+        x = self.x
+        y = self.y
+        return {'id': id, 'x': x, 'size': size, 'y': y}
