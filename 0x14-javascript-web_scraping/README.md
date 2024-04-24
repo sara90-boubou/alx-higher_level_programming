@@ -67,4 +67,6 @@ The first argument is the Movie ID - example: 3 = “Return of the Jedi”
 Display one character name by line in the same order of the list “characters” in the /films/ response
 You must use the Star wars API
 You must use the module request
+![image](https://github.com/sara90-boubou/alx-higher_level_programming/assets/85290214/de87ff36-5808-41c2-b6c6-ce4223bf2c14)
+
 
